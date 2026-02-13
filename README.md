@@ -2,7 +2,7 @@
 ELT pipeline for FinTech data: Crypto, UPI transactions, and stock time-series
 
 This project implements a complete ELT (Extract, Load, Transform) pipeline for the Financial Technology (FinTech) domain.
-The pipeline integrates multiple real-world datasets, cleans them, performs exploratory analysis, and stores processed data in CSV and JSON formats for further analysis or AI/ML applications.
+The pipeline integrates multiple real-world datasets, cleans them, performs exploratory analysis, and stores processed data in CSV and JSON formats.
 
 ## Thematic Domain
 **Financial Technology (FinTech)**:
@@ -32,20 +32,23 @@ The pipeline integrates multiple real-world datasets, cleans them, performs expl
    - Saved in `data/cleaned/`
 
 
-## Data Sources & Details
 
-1. **CoinGecko API (Crypto)**  
-   - Top 10 cryptocurrencies by market capitalization  
-   - Parameters: `vs_currency=usd`, `order=market_cap_desc`, `per_page=10`, `sparkline=False`  
-   - Columns include: `id`, `symbol`, `name`, `current_price`, `market_cap`, `roi`, `total_volume`, etc.  
+## Data Sources and Assumptions
 
-2. **Kaggle UPI Transactions Dataset**  
-   - Monthly transaction volume and value by banks  
-   - Columns: `UPI Banks`, `Volume (Mn)`, `Value (Cr)`, `Month`, `Year`  
+1. **Cryptocurrency Data (API)**
+   - Source: https://www.coingecko.com/en/api
+   - Data includes current prices, market capitalization, volume, supply, ROI, and other metrics for the top 10 cryptocurrencies.
+   - **Assumptions:** Missing values in `max_supply` and `roi` are filled with 0. Only the top 10 coins are considered for analysis to focus on the most impactful assets.
 
-3. **Finance Time-Series (Yahoo Finance / CSV)**  
-   - Historical stock prices of leading FinTech companies: `PYPL`, `MA`, `V`  
-   - Columns: `Date`, `PYPL`, `MA`, `V`  
+2. **UPI Transactions (Public Dataset)**
+   - Source: Kaggle dataset `fintech_transaction.csv`
+   - Data includes monthly transaction volume and value by banks.
+   - **Assumptions:** Month and Year columns are combined into a single datetime column. There are no missing values, so no imputation was required.
+
+3. **Stock Prices (Time-Series)**
+   - Source: Yahoo Finance via `yfinance` Python library
+   - Data includes daily closing prices for Visa, MasterCard, and PayPal from 2021–2026.
+   - **Assumptions:** Missing trading days are ignored. Prices are used directly without smoothing.
 
 ## Data Cleaning & Transformation
 
