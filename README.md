@@ -56,7 +56,7 @@ The pipeline integrates multiple real-world datasets, cleans them, performs expl
 - Duplicates removed from all datasets  
 - Date columns standardized for consistent analysis  
 - Summary statistics generated for numeric columns  
-- Processed data stored in **both CSV and JSON formats**
+- Cleaned data stored in **both CSV and JSON formats**
 
 ## How to Run
 
